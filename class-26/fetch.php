@@ -15,6 +15,8 @@
         <th>Pass</th>
         <th>Address</th>
         <th>Role</th>
+        <th>Action</th>
+
     </tr>
     <?php
     include 'connection.php';
@@ -31,14 +33,18 @@
     <td><?php echo $value['Address'];?></td>
     <td><?php echo $value['role'];?></td>
     <td>  
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit<?php echo 
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal<?php echo 
 $value['id'];?>">Edit</button>
+
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?php echo 
+$value['id'];?>">Delete</button>
+
 
 </td>
 
 
     <!-- update modal start -->
-    <div class="modal fade" id="edit"<?php echo $value['id'];?> tabindex="-1" >
+    <div class="modal fade" id="editModal<?php echo $value['id'];?>" tabindex="-1" >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -47,6 +53,8 @@ $value['id'];?>">Edit</button>
       </div>
       <div class="modal-body">
            <form action="code.php" method="post">
+               <input type="hidden" name="id" value="<?php echo $value['id'];?>">
+
                 <input type="text" placeholder="Enter your name" class="form-control mt-3" name="name"
                 value='<?php echo $value['Name'];?>'>
 
@@ -68,13 +76,45 @@ $value['id'];?>">Edit</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
     <!-- Update modal end -->
+
+    <!-- DELETE MODAL START -->
+
+        <div class="modal fade" id="delete<?php echo $value['id'];?>" tabindex="-1" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <p class="text-center">Do you really want to delete this data ?</p>
+
+           <form action="code.php" method="post">
+
+            <input type="hidden" name="id" value="<?php echo $value['id'];?>">
+
+              <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name="delete">Delete</button>
+      </div>
+
+          </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- DELETE MODAL END -->
 
 
     </tr>

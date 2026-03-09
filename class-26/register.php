@@ -19,7 +19,7 @@
                     <input type="text" placeholder="Enter your password" class="form-control mt-3" name="pass">
                     <input type="text" placeholder="Enter your address" class="form-control mt-3" name="address">
                     <input type="text" placeholder="Enter your role" class="form-control mt-3" name="role">
-                    <button class="btn btn-primary mt-3">Register</button>
+                    <button  class="btn btn-primary mt-3" name = 'register'>Register</button>
 
                 </form>
             </div>

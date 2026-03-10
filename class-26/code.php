@@ -11,6 +11,10 @@ if(isset($_POST['register'])){
     $address = $_POST['address'];
     $role = $_POST['role'];
 
+    $query = mysqli_query($con , 'SELECT Email from register where Email = "$email"');
+    echo mysqli_num_rows($query);
+
+
     // echo $name . '<br>'  .$email . '<br>'  .$pass . '<br>'  .$address;  
 
 

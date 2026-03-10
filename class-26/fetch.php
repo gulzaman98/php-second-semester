@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<<<<<<< HEAD
+    <style></style>
+=======
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+>>>>>>> cb6d9f60735ff0a7e8838d7b879de52e20d821e9
 </head>
 <body>
 <table>
@@ -14,9 +18,15 @@
         <th>Email</th>
         <th>Pass</th>
         <th>Address</th>
+<<<<<<< HEAD
+=======
         <th>Role</th>
+<<<<<<< HEAD
+>>>>>>> cb6d9f60735ff0a7e8838d7b879de52e20d821e9
+=======
         <th>Action</th>
 
+>>>>>>> d23b228ccafb634881f8d62b9ccde5535d95e9c0
     </tr>
     <?php
     include 'connection.php';
@@ -27,6 +37,11 @@
 
     <tr>
     <td><?php echo $value['id'];?></td>
+<<<<<<< HEAD
+    <td><?php echo $value['id'];?></td>
+    <td><?php echo $value['id'];?></td>
+    <td><?php echo $value['id'];?></td>
+=======
     <td><?php echo $value['Name'];?></td>
     <td><?php echo $value['Email'];?></td>
     <td><?php echo $value['Password'];?></td>
@@ -117,22 +132,29 @@ $value['id'];?>">Delete</button>
     <!-- DELETE MODAL END -->
 
 
+>>>>>>> cb6d9f60735ff0a7e8838d7b879de52e20d821e9
     </tr>
 
     <?php
 
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> cb6d9f60735ff0a7e8838d7b879de52e20d821e9
     }
 
     ?>
 </table>
+<<<<<<< HEAD
+=======
 </div>
 </div>
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+>>>>>>> cb6d9f60735ff0a7e8838d7b879de52e20d821e9
 </body>
 </html>

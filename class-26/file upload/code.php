@@ -19,11 +19,9 @@ if(isset($_POST['upload-file'])){
         $query = mysqli_query($con , "INSERT INTO file(file) VALUES('$image_name')");
 
         if($query){
-                 echo
-        '<script>
-        alert("File uploaded successfully")
-        </script>';
-        }
+        header("Location: fetch.php");
+        exit();
+    }
     }
         
     }else{

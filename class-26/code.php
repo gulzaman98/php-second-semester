@@ -83,4 +83,34 @@ if(isset($_POST['delete'])){
     }
 }
 
+
+// login from
+
+if(isset($_POST["login"])){
+    $email = $_POST["email"];
+    $pass = $_POST["pass"];
+
+    $query = mysqli_query($con , "SELECT * from register where Email = '$email' AND Password = '$pass' ");
+    if(mysqli_num_rows($query) == 1){
+        $data = mysqli_fetch_assoc($query);
+
+        if($data['role'] == 'admin'){
+            echo "<script>
+            alert('welcome to admin panel')
+            location.assign('admin_panel/public.php?index')
+            </script>";
+        }else{
+              echo "<script>
+            alert('welcome to website')
+            location.assign('user.php')
+            </script>";
+        }
+    }else{
+          echo "<script>
+            alert('incorect email id or password')
+            location.assign('login.php')
+            </script>";
+    }
+}
+
 ?>

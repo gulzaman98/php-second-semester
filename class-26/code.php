@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'connection.php';
 
 // INSERT
@@ -92,6 +92,9 @@ if(isset($_POST["login"])){
     $query = mysqli_query($con , "SELECT * from register where Email = '$email' AND Password = '$pass' ");
     if(mysqli_num_rows($query) == 1){
         $data = mysqli_fetch_assoc($query);
+
+        $_SESSION['admin_id'] = $data['id'];
+        $_SESSION['admin_name'] = $data['Name'];
 
         if($data['role'] == 'admin'){
             echo "<script>

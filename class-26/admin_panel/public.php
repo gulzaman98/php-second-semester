@@ -74,7 +74,7 @@ if(!isset($_SESSION['admin_id'])){
                 <div class="navbar-nav w-100">
                     <a href="public.php?index" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <a href="public.php?category" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Category</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="button.html" class="dropdown-item">Buttons</a>
                             <a href="typography.html" class="dropdown-item">Typography</a>
@@ -202,6 +202,10 @@ if(!isset($_SESSION['admin_id'])){
             <?php
             if(isset($_GET['index'])){
                 include 'index.php';
+            }
+
+            if(isset($_GET['category'])){
+                include 'add_category.php';
             }
             ?>
             <!-- body section end -->

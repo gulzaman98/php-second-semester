@@ -19,128 +19,76 @@
 
             <!-- Add category section start -->
 
-            <table>
+            <!-- Fetch category section start -->
+
+            <h3 class="text-center mt-3">Fetch Categories</h3>
+<table class="table table-bordered table-hover table-striped">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Pass</th>
-        <th>Address</th>
-        <th>Role</th>
+        <th>ID</th>
+        <th>Category Name</th>
+        <th>Image</th>
         <th>Action</th>
-
-
     </tr>
     <?php
-    include 'connection.php';
-    $query = mysqli_query($con , "SELECT * from register");
-
-    foreach($query as $value){  
+    include '../connection.php';
+    $fetch = mysqli_query($con, "SELECT * FROM add_category");
+    foreach($fetch as $value){  
     ?>
-
     <tr>
-    <td><?php echo $value['id'];?></td>
-    <td><?php echo $value['Name'];?></td>
-    <td><?php echo $value['Email'];?></td>
-    <td><?php echo $value['Password'];?></td>
-    <td><?php echo $value['Address'];?></td>
-    <td><?php echo $value['role'];?></td>
-    <td>  
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal<?php echo 
-$value['id'];?>">Edit</button>
-
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?php echo 
-$value['id'];?>">Delete</button>
-
-
-</td>
-
-
-    <!-- update modal start -->
-    <div class="modal fade" id="editModal<?php echo $value['id'];?>" tabindex="-1" >
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-           <form action="code.php" method="post">
-               <input type="hidden" name="id" value="<?php echo $value['id'];?>">
-
-                <input type="text" placeholder="Enter your name" class="form-control mt-3" name="name"
-                value='<?php echo $value['Name'];?>'>
-
-                <input type="text" placeholder="Enter your email" class="form-control mt-3" name="email"
-                value='<?php echo $value['Email'];?>'>
-
-                <input type="text" placeholder="Enter your password" class="form-control mt-3" name="pass"
-                value='<?php echo $value['Password'];?>'>
-
-                <input type="text" placeholder="Enter your address" class="form-control mt-3" name="address"
-                value='<?php echo $value['Address'];?>'>
-
-                <input type="text" placeholder="Enter your role" class="form-control mt-3" name="role"
-                value='<?php echo $value['role'];?>'>
-
-                <button class="btn btn-dark mt-3" name='update'>Update</button>
-
-                </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-    <!-- Update modal end -->
-
-    <!-- DELETE MODAL START -->
-
-        <div class="modal fade" id="delete<?php echo $value['id'];?>" tabindex="-1" >
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <p class="text-center">Do you really want to delete this data ?</p>
-
-           <form action="code.php" method="post">
-
-            <input type="hidden" name="id" value="<?php echo $value['id'];?>">
-
-              <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" name="delete">Delete</button>
-      </div>
-
-          </form>
-      </div>
-    
-    </div>
-  </div>
-</div>
-
-
-
-    <!-- DELETE MODAL END -->
-
-
-
+        <td><?php echo $value['category_id'];?></td>
+        <td><?php echo $value['category_name'];?></td>
+        <td><img src="images/<?php echo $value['category_image'];?>" width="50"></td>
+        <td>  
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $value['category_id'];?>">Edit</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?php echo $value['category_id'];?>">Delete</button>
+        </td>
     </tr>
 
-    <?php
+    <div class="modal fade" id="editModal<?php echo $value['category_id'];?>" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="../code.php" method="post" enctype="multipart/form-data">
+                    <div class="modal-header"><h5>Edit Category</h5></div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" value="<?php echo $value['category_id'];?>">
+                        
+                        <label>Category Name</label>
+                        <input type="text" name="name" class="form-control" value="<?php echo $value['category_name'];?>">
+                        
+                        <label class="mt-2">Change Image (Optional)</label>
+                        <input type="file" name="new_image" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="update" class="btn btn-dark">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete<?php echo $value['category_id'];?>" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="../code.php" method="post">
+                <div class="modal-body text-center">
+                    <p>Kya aap waqai <b><?php echo $value['category_name'];?></b> ko delete karna chahte hain?</p>
+                    <input type="hidden" name="id" value="<?php echo $value['category_id'];?>">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="delete" class="btn btn-danger">Confirm Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
-
-
-    }
-
-    ?>
+    <?php } ?>
 </table>
 
 

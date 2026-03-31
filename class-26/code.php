@@ -49,9 +49,9 @@ if(isset($_POST['update'])){
 
     if($update){
         echo "<script>
-            alert('Data Updated Successfully');
-            location.assign('fetch.php');
-            </script>";
+            alert('Category updated successfully!');
+            window.location.href='admin_panel/public.php?category';
+        </script>";
     }
 
 }
@@ -75,9 +75,9 @@ if(isset($_POST['delete'])){
     if($delete){
 
     echo "<script>
-        alert('Data Deleted Successfully')
-        location.assign('fetch.php')
-    </script>";
+            alert('Category deleted successfully!');
+            window.location.href='admin_panel/public.php?category';
+        </script>";
 
     }
 }
@@ -112,6 +112,47 @@ if(isset($_POST["login"])){
             alert('incorect email id or password')
             location.assign('login.php')
             </script>";
+    }
+}
+
+// ADD category
+
+
+
+
+if(isset($_POST['add_cat'])){
+    $cat_name = $_POST['cat_name'];
+
+    $image_name = $_FILES['cat_image']['name'];
+    $tmp_name = $_FILES['cat_image']['tmp_name'];
+    $cat_size = $_FILES['cat_image']['size'];
+    $cat_type = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+
+    // Image save karne ka rasta
+    $destination = "admin_panel/images/" . $image_name;
+
+    if($cat_size <= 5000000){
+        if($cat_type == 'jpg' || $cat_type == 'png' || $cat_type == 'jpeg'){
+            
+            if(move_uploaded_file($tmp_name, $destination)){
+                // Table columns: category_name, category_image
+                $query = "INSERT INTO add_category (category_name, category_image) VALUES ('$cat_name', '$image_name')";
+                $add_cat = mysqli_query($con, $query);
+
+                if($add_cat){
+                    echo "<script>
+                        alert('Category inserted successfully');
+                        window.location.href='admin_panel/public.php?category';
+                    </script>";
+                }
+            } else {
+                echo "<script>alert('Image upload failed');</script>";
+            }
+        } else {
+            echo "<script>alert('Sirf JPG, PNG aur JPEG allow hain');</script>";
+        }
+    } else {
+        echo "<script>alert('File size 5MB se kam honi chahiye');</script>";
     }
 }
 

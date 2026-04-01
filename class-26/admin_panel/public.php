@@ -82,7 +82,7 @@ if(!isset($_SESSION['admin_id'])){
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="public.php?product" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Add Products</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
@@ -206,6 +206,10 @@ if(!isset($_SESSION['admin_id'])){
 
             if(isset($_GET['category'])){
                 include 'add_category.php';
+            }
+
+             if(isset($_GET['product'])){
+                include 'product.php';
             }
             ?>
             <!-- body section end -->

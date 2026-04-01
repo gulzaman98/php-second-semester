@@ -157,5 +157,70 @@ if(isset($_POST['add_cat'])){
 }
 
 
+// ADD Product
+
+if(isset($_POST["add-pro"])){
+    $p_name = $_POST['p_name']; 
+    $p_descript = $_POST['p_description']; 
+    $p_price = $_POST['p_price']; 
+    $p_qnty = $_POST['p_qnty']; 
+    $category_id = $_POST['category_id']; 
+
+    $image_name = $_FILES['p_image']['name'];
+    $image_size = $_FILES['p_image']['size'];
+    $temp_name = $_FILES['p_image']['tmp_name'];
+    $image_type = pathinfo($image_name, PATHINFO_EXTENSION);
+    $destination = 'admin_panel/images/'.$image_name;
+
+    if($image_size <= 5000000){
+
+    if($image_type == 'jpg' || $image_type == 'png' || $image_type == 'jpeg'){
+        if(move_uploaded_file($temp_name , $destination)){
+
+            $add_product = mysqli_query($con, "INSERT INTO add_product(p_name, p_description,
+            p_price, p_qnty,  category_id, p_image) VALUES('$p_name', '$p_descript', '$p_price',
+            '$p_qnty', '$category_id', '$image_name')");
+
+
+            die(mysqli_error($con));
+
+
+
+            if($add_product){
+                  echo "<script>
+            alert('product inserted successfully')
+            location.assign('admin_panel/public.php?product')
+            </script>"; 
+            }
+
+
+
+
+        }else{
+           echo "<script>
+            alert('file not inserted')
+            location.assign('admin_panel/public.php?product')
+            </script>"; 
+        }
+
+
+    }else{
+        echo "<script>
+            alert('file format not supported')
+            location.assign('admin_panel/public.php?product')
+            </script>";
+    }
+
+
+
+    }else{
+        echo "<script>
+            alert('file size too longer')
+            location.assign('admin_panel/public.php?product')
+            </script>";
+    }
+}
+
+
 
 ?>

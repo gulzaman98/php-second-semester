@@ -102,9 +102,13 @@ if(isset($_POST["login"])){
             location.assign('admin_panel/public.php?index')
             </script>";
         }else{
+
+        $_SESSION['user_id'] = $data['id'];
+        $_SESSION['user_name'] = $data['Name'];
+
               echo "<script>
             alert('welcome to website')
-            location.assign('user.php')
+            location.assign('index.php')
             </script>";
         }
     }else{

@@ -136,7 +136,7 @@ if(isset($_POST['add_cat'])){
     $destination = "admin_panel/images/" . $image_name;
 
     if($cat_size <= 5000000){
-        if($cat_type == 'jpg' || $cat_type == 'png' || $cat_type == 'jpeg'){
+        if($cat_type == 'jpg' || $cat_type == 'png' || $cat_type == 'jpeg' || $cat_type == 'webp' || $cat_type == 'jfif'){
             
             if(move_uploaded_file($tmp_name, $destination)){
                 // Table columns: category_name, category_image
@@ -153,10 +153,10 @@ if(isset($_POST['add_cat'])){
                 echo "<script>alert('Image upload failed');</script>";
             }
         } else {
-            echo "<script>alert('Sirf JPG, PNG aur JPEG allow hain');</script>";
+            echo "<script>alert('only allow JPG, PNG  JPEG aur WEBP');</script>";
         }
     } else {
-        echo "<script>alert('File size 5MB se kam honi chahiye');</script>";
+        echo "<script>alert('File size less than 5MB ');</script>";
     }
 }
 
@@ -178,7 +178,7 @@ if(isset($_POST["add-pro"])){
 
     if($image_size <= 5000000){
 
-    if($image_type == 'jpg' || $image_type == 'png' || $image_type == 'jpeg'){
+    if($image_type == 'jpg' || $image_type == 'png' || $image_type == 'jpeg' || $image_type == 'webp' || $image_type == 'jfif'){
         if(move_uploaded_file($temp_name , $destination)){
 
             $add_product = mysqli_query($con, "INSERT INTO add_product(p_name, p_description,

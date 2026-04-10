@@ -226,5 +226,23 @@ if(isset($_POST["add-pro"])){
 }
 
 
+// DD TO Cart
+
+if(isset($_POST['add-to-cart'])){
+    $user_id = $_SESSION['user_id'];
+    $p_id = $_POST['p_id'];
+    $p_price = $_POST['p_price'];
+    $p_qnty = $_POST['p_qnty'];
+
+    $add_to_cart =  mysqli_query($con, "INSERT INTO add_to_cart(user_id, pro_id, pro_price, pro_qnty)
+    VALUES('$user_id', '$p_id', '$p_price', '$p_qnty')");
+
+    if($add_to_cart){
+         echo "<script>
+            alert('your data added in your cart syuccessfuly');
+            window.location.href='product-detail.php?id=$p_id';
+            </script>";      
+    }
+}
 
 ?>

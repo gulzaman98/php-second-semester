@@ -1,5 +1,4 @@
 <?php
-
 include_once 'header.php'
 
 ?>
@@ -122,7 +121,8 @@ include_once 'header.php'
 		$fetch_pro = mysqli_fetch_assoc($product);
 
 		?>
-
+			<form action="code.php" method='post'>
+				<input type="hidden" name='p_id' value='<?php echo $_GET['id'];?>'>
 			<section class="sec-product-detail bg0 p-t-65 p-b-60">
 		<div class="container">
 			<div class="row">
@@ -174,6 +174,7 @@ include_once 'header.php'
 						</h4>
 
 						<span class="mtext-106 cl2">
+							<input type="hidden" name='p_price' value='<?php echo $fetch_pro['p_price'];?>'>
 							<?php echo $fetch_pro['p_price']?>
 						</span>
 
@@ -228,16 +229,29 @@ include_once 'header.php'
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+										<input class="mtext-104 cl3 txt-center num-product" type="number" name="p_qnty" value="1">
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<?php
+										if(isset($_SESSION['user_id'])){
+										?>
+										<button type="submit" name='add-to-cart' class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 										Add to cart
 									</button>
+									<?php	
+										}else{
+											?>
+											<a href="login.php" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 
+												js-addcart-detail">
+										Add to cart
+									</a>
+									<?php
+										}
+										?>
+									
 								</div>
 							</div>	
 						</div>
@@ -451,7 +465,7 @@ include_once 'header.php'
 			</span>
 		</div>
 	</section>
- 
+	</form>
 	<?php
 
 	}

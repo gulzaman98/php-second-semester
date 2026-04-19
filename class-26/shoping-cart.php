@@ -74,7 +74,7 @@ include 'header.php';
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
@@ -108,6 +108,7 @@ include 'header.php';
 	<!-- display cart data from database -->
 
 	<?php
+	$_SESSION['g_total'] = 0;
 	if(isset($_SESSION['user_id'])){
 		$uid = $_SESSION['user_id'];
 		$fetch = mysqli_query($con,"SELECT add_product.* , add_to_cart.*
@@ -117,12 +118,12 @@ include 'header.php';
 		add_to_cart.user_id = '$uid' ");
 
 
-		foreach($fetch as $cart){
+	
 
 		?>
 
 
-		<form class="bg0 p-t-75 p-b-85">
+		<form action="checkout.php" method="POST" class="bg0 p-t-75 p-b-85">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -137,6 +138,10 @@ include 'header.php';
 									<th class="column-5">Total</th>
 								</tr>
 
+								<?php
+									foreach($fetch as $cart){
+								?>
+
 								<tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1">
@@ -147,43 +152,33 @@ include 'header.php';
 									<td class="column-3"><?php echo $cart['pro_price'] ?></td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+											<?php echo $cart['pro_qnty'] ?>
+											<!-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
+											</div> -->
+<!-- 
 											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
 
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
+											</div> -->
 										</div>
 									</td>
-									<td class="column-5">$ 36.00</td>
+									<td class="column-5">
+
+										<?php
+										$_SESSION['cart_amount'] =  $cart['pro_price'] * $cart['pro_qnty'];
+										echo $_SESSION['cart_amount'];
+										 $_SESSION['g_total'] += $_SESSION['cart_amount'];
+										?>
+
+										
+
+									</td>
 								</tr>
-
-								<tr class="table_row">
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="images/item-cart-05.jpg" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2">Lightweight Jacket</td>
-									<td class="column-3">$ 16.00</td>
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-									</td>
-									<td class="column-5">$ 16.00</td>
-								</tr>
+								<?php
+									}
+									?>
 							</table>
 						</div>
 
@@ -218,7 +213,9 @@ include 'header.php';
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									$79.65
+									<?php
+									echo $_SESSION['g_total'];
+									 ?>
 								</span>
 							</div>
 						</div>
@@ -242,15 +239,18 @@ include 'header.php';
 
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 										<select class="js-select2" name="time">
-											<option>Select a country...</option>
-											<option>USA</option>
-											<option>UK</option>
+											<option>Select a state...</option>
+											<option>Sindh</option>
+											<option>Punjab</option>
+											<option>Balochistan</option>
+											<option>KPK</option>
+											<option>Gilgit Baltistan</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 
 									<div class="bor8 bg0 m-b-12">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="City">
 									</div>
 
 									<div class="bor8 bg0 m-b-22">
@@ -276,12 +276,12 @@ include 'header.php';
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									$79.65
+									<?php echo "Rs. " . number_format($_SESSION['g_total'], 2); ?>
 								</span>
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<button a href="checkout.php" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
 						</button>
 					</div>
@@ -296,7 +296,7 @@ include 'header.php';
 		}
 
 
-	}
+	
 	
 	?>
 
